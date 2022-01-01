@@ -255,6 +255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxSpeed: 5
+  BoostPower: 10
+  BoostCooldown: 3
 --- !u!1 &286021067
 GameObject:
   m_ObjectHideFlags: 0
