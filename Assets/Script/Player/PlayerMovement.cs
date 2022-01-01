@@ -52,6 +52,7 @@ public class PlayerMovement : MonoBehaviour
         if (BlinkPoint > 0)
         {
             myRigidBody.position = position;
+            playerVelocity = Vector2.zero;
             BlinkPoint--;
         }
     }
