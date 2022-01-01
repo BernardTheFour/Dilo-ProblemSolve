@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] private float MaxSpeed = 5;
+
     private Rigidbody2D myRigidBody;
+
+    private Vector2 playerVelocity;
 
     private void Awake()
     {
@@ -14,6 +18,26 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.AddForce(new Vector2(150, 90));
+
+    }
+
+    private void Update()
+    {
+        // Keyboard Input
+        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
+        {
+            float x = Input.GetAxis("Horizontal");
+            float y = Input.GetAxis("Vertical");
+            playerVelocity = new Vector2(x, y) * MaxSpeed;
+        }
+        else
+        {
+            playerVelocity = Vector2.zero;
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        myRigidBody.velocity = playerVelocity;
     }
 }
