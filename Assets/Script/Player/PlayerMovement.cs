@@ -14,6 +14,6 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        myRigidBody.velocity = new Vector2(2, 5);
+        myRigidBody.AddForce(new Vector2(150, 90));
     }
 }
