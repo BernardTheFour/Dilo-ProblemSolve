@@ -13,7 +13,7 @@ public class CointGenerator : MonoBehaviour
     [SerializeField] private Transform LeftLimit;
     [SerializeField] private Transform RightLimit;
 
-    private ObjectPool _cointPool;
+    public static ObjectPool _cointPool;
 
     private void Awake()
     {
