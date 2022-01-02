@@ -6,9 +6,7 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] private float MaxSpeed = 5;
-    [SerializeField] private float BlinkPoint = 5;
-    [SerializeField] private float MaxBlinkPoint = 5;
-    [SerializeField] private float BlinkCD = 5;
+    [SerializeField] private int TeleportPoint = 5;
 
     private Rigidbody2D myRigidBody;
 
@@ -22,7 +20,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        ScoreManager.Instance.TeleportCharges(TeleportPoint);
     }
 
     private void Update()
@@ -35,11 +33,11 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity = new Vector2(x, y) * MaxSpeed;
         }
 
-        // Mouse(0) is a blink skill
+        // Mouse(0) is a teleport skill
         if (Input.GetMouseButtonDown(0))
         {
             Vector2 inputPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Blink(inputPosition);
+            Teleport(inputPosition);
         }
     }
 
@@ -48,14 +46,14 @@ public class PlayerMovement : MonoBehaviour
         myRigidBody.velocity = playerVelocity;
     }
 
-    private void Blink(Vector2 position)
+    private void Teleport(Vector2 position)
     {
-        if (BlinkPoint > 0)
+        if (ScoreManager.Instance.TeleportPoint > 0)
         {
             myRigidBody.velocity = Vector2.zero;
             myRigidBody.position = position;
             playerVelocity = Vector2.zero;
-            BlinkPoint--;
+            ScoreManager.Instance.TeleportCharges(-1);
         }
     }
 }

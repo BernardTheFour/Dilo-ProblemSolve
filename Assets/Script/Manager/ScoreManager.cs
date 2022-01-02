@@ -5,17 +5,19 @@ using UnityEngine.UI;
 
 public class ScoreManager : MonoBehaviour
 {
-    public static ScoreManager instance;
+    public static ScoreManager Instance;
 
-    [SerializeField] private Text UIScore;
+    [SerializeField] private Text UIScore = default;
+    [SerializeField] private Text UITeleport = default;
 
     public int Score { private set; get; }
+    public int TeleportPoint { private set; get; }
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -28,6 +30,12 @@ public class ScoreManager : MonoBehaviour
     {
         Score++;
         UIScore.text = "Score: " + Score;
+    }
+
+    public void TeleportCharges(int value)
+    {
+        TeleportPoint += value;
+        UITeleport.text = "Teleport: " + TeleportPoint;
     }
 }
 
