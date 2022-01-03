@@ -8,13 +8,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float MaxSpeed = 5;
     [SerializeField] private int TeleportPoint = 5;
 
+    
+    [SerializeField] AudioClip audioCoint;
+    [SerializeField] AudioClip audioTelepoint;
+    [SerializeField] AudioClip audioTeleport;
+    [SerializeField] AudioClip audioEnemy;
+
     private Rigidbody2D myRigidBody;
 
     private Vector2 playerVelocity;
 
+    private AudioSource myAudio;
+
     private void Awake()
     {
         myRigidBody = GetComponent<Rigidbody2D>();
+        myAudio = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -26,12 +35,9 @@ public class PlayerMovement : MonoBehaviour
     private void Update()
     {
         // Keyboard Input
-        if (Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0)
-        {
-            float x = Input.GetAxis("Horizontal");
-            float y = Input.GetAxis("Vertical");
-            playerVelocity = new Vector2(x, y) * MaxSpeed;
-        }
+        float x = Input.GetAxis("Horizontal");
+        float y = Input.GetAxis("Vertical");
+        playerVelocity = new Vector2(x, y) * MaxSpeed;
 
         // Mouse(0) is a teleport skill
         if (Input.GetMouseButtonDown(0))
@@ -50,10 +56,27 @@ public class PlayerMovement : MonoBehaviour
     {
         if (ScoreManager.Instance.TeleportPoint > 0)
         {
+            myAudio.PlayOneShot(audioTeleport);
             myRigidBody.velocity = Vector2.zero;
             myRigidBody.position = position;
             playerVelocity = Vector2.zero;
             ScoreManager.Instance.TeleportCharges(-1);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        switch (collision.collider.tag)
+        {
+            case "Coint":
+                myAudio.PlayOneShot(audioCoint);
+                break;
+            case "Telepoint":
+                myAudio.PlayOneShot(audioTelepoint);
+                break;
+            case "Enemy":
+                myAudio.PlayOneShot(audioEnemy);
+                break;
         }
     }
 }

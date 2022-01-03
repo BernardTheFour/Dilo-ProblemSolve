@@ -26,9 +26,9 @@ public class ScoreManager : MonoBehaviour
         }
     }
 
-    public void AddScore()
+    public void ChangeScore(int value)
     {
-        Score++;
+        Score += value;
         UIScore.text = "Score: " + Score;
     }
 

@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Coint
+  - Enemy
+  - Telepoint
   layers:
   - Default
   - TransparentFX

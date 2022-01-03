@@ -6,9 +6,9 @@ public class CointBehaviour : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            ScoreManager.Instance.AddScore();
+            ScoreManager.Instance.ChangeScore(+1);
         }
 
-        CointGenerator.Instance.Regenerate(gameObject);
+        Generator.Instance.Regenerate(gameObject);
     }
 }
